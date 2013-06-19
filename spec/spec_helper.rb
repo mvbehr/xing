@@ -4,6 +4,7 @@ $:.unshift File.expand_path('../../lib', __FILE__)
 require 'xing'
 require 'rspec'
 require 'webmock/rspec'
+require 'pry'
 
 def fixture_path
   File.expand_path("../fixtures", __FILE__)
