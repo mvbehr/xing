@@ -28,18 +28,41 @@ describe Xing::Client do
   end
 
   describe "#contacts" do
-    before do
-      stub_request(:get, "https://api.xing.com/v1/users/me/contacts?limit=3&offset=3").
-          to_return(:status => 200, :body => fixture("contacts_page_1.json"), :headers => {})
-      stub_request(:get, "https://api.xing.com/v1/users/me/contacts?limit=3&offset=0").
-          to_return(:status => 200, :body => fixture("contacts_page_2.json"), :headers => {})
+
+    describe 'pagination' do
+      before do
+        stub_request(:get, "https://api.xing.com/v1/users/me/contacts?limit=3&offset=3").
+            to_return(:status => 200, :body => fixture("contacts_page_1.json"), :headers => {})
+        stub_request(:get, "https://api.xing.com/v1/users/me/contacts?limit=3&offset=0").
+            to_return(:status => 200, :body => fixture("contacts_page_2.json"), :headers => {})
+      end
+
+      subject { client.contacts(limit: 3) }
+
+      it { should be_a_kind_of Array }
+      its(:size) { should == 5 }
+      its(:first) { should be_an_instance_of Xing::Models::User }
     end
 
-    subject { client.contacts(limit: 3) }
+    describe 'params: user_fields' do
+      context 'as Array' do
+        it 'should be added to the request url as string' do
+          stub_request(:get, "https://api.xing.com/v1/users/me/contacts").with(query: hash_including(user_fields: 'display_name,id'))
+          .to_return(:status => 200, :body => fixture("contacts_page_1.json"), :headers => {})
 
-    it { should be_a_kind_of Array }
-    its(:size) { should == 5 }
-    its(:first) { should be_an_instance_of Xing::Models::User }
+          client.contacts user_fields: %w(display_name id)
+        end
+      end
+
+      context 'as string' do
+        it 'should be added to the request url' do
+          stub_request(:get, "https://api.xing.com/v1/users/me/contacts").with(query: hash_including(user_fields: 'id,bla'))
+          .to_return(:status => 200, :body => fixture("contacts_page_1.json"), :headers => {})
+
+          client.contacts user_fields: "id,bla"
+        end
+      end
+    end
   end
 
   describe '#create_conversation' do

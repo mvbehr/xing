@@ -1,3 +1,5 @@
+require 'active_support/core_ext/hash'
+
 module Xing
   module Api
     module Reader
@@ -15,9 +17,17 @@ module Xing
         simple_query(path, options)
       end
 
-      # @return [Array[Xing::Models::User]]
+      # load current users contacts
+      #
+      # @param [Hash] options
+      # @option options [Symbol] :offset (0) from where to start loading contacts
+      # @option options [Symbol] :limit (100) how many contacts to fetch per request
+      # @option options [Array, String] :user_fields
+      # @return [Array<Xing::Models::User>]
       def contacts options={}
+        options.symbolize_keys!
         options = { offset: 0, limit: 100 }.merge(options)
+        options[:user_fields] = options[:user_fields].join(",") if options[:user_fields].is_a?(Array)
 
         fetch_contacts(options)['users'].map { |contact| Models::User.new contact }
       end
