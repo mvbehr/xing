@@ -9,18 +9,21 @@ module Xing
       true
     end
   end
+  
+  module Models
+    autoload :Post,             "xing/models/post"
+    autoload :User,             "xing/models/user"
+    autoload :Event,            "xing/models/event"
+    autoload :Group,            "xing/models/group"
+    autoload :Comment,          "xing/models/comment"
+    autoload :CommpanyProfile,  "xing/models/company_profile"
+    autoload :Activity,         "xing/models/activity"
+    autoload :Base,             "xing/models/base"
+  end
 
-  autoload :Activity,         "xing/activity"
   autoload :Api,              "xing/api"
-  autoload :Base,             "xing/base"
   autoload :Client,           "xing/client"
-  autoload :Comment,          "xing/comment"
-  autoload :CommpanyProfile,  "xing/company_profile"
   autoload :Errors,           "xing/errors"
-  autoload :Event,            "xing/event"
-  autoload :Group,            "xing/group"
   autoload :Helpers,          "xing/helpers"
   autoload :Mash,             "xing/mash"
-  autoload :Post,             "xing/post"
-  autoload :User,             "xing/user"
 end

@@ -23,7 +23,7 @@ describe Xing::Client do
           to_return(:body => fixture("network_feed.json"))
       posts = client.network_feed
       posts.length.should == 9
-      posts.first.should be_an_instance_of(Xing::Post)
+      posts.first.should be_an_instance_of(Xing::Models::Post)
     end
   end
 

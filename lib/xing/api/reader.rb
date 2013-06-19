@@ -6,7 +6,7 @@ module Xing
         path = person_path(options) + "/network_feed" + params(options).to_s
         raw_posts = get(path, options).fetch("network_activities", [])
         raw_posts.map{|post|
-          Xing::Post.new(post)
+          Xing::Models::Post.new(post)
         }
       end
 

@@ -1,7 +1,7 @@
-module Xing
-  class Post < Xing::Base
+module Xing::Models
+  class Post < Base
     lazy_attr_reader :commentable, :comments, :deletable, :id, :image,
-                     :likable, :liked, :like_count, :link, :link_title,
+                     :likeable, :liked, :like_count, :link, :link_title,
                      :post_type, :posted_at, :sharable, :text, :type, :user
 
 
@@ -13,7 +13,7 @@ module Xing
 
     # @return [Xing::Activity]
     def activities
-      @activities ||= @attrs["objects"].map{|activity| Xing::Activity.new(activity)} unless @attrs["objects"].nil?
+      @activities ||= @attrs["objects"].map{|activity| Xing::Models::Activity.new(activity)} unless @attrs["objects"].nil?
     end
 
     # @return [Boolean]
@@ -23,7 +23,7 @@ module Xing
 
     # @return [Xing::Comments]
     def comments
-      @comments ||= @attrs["comments"].nil? ? [] : @attrs["comments"]["latest_comments"].map{|comment| Xing::Comment.new(comment)}
+      @comments ||= @attrs["comments"].nil? ? [] : @attrs["comments"]["latest_comments"].map{|comment| Xing::Models::Comment.new(comment)}
     end
 
     # @return [Boolean]
@@ -39,8 +39,8 @@ module Xing
     end
 
     # @return [Boolean]
-    def likable
-      @likable ||= @attrs["possible_actions"].nil? ? false : @attrs["possible_actions"].include?("LIKE")
+    def likeable
+      @likeable ||= @attrs["possible_actions"].nil? ? false : @attrs["possible_actions"].include?("LIKE")
     end
 
     # @return [Boolean]
@@ -102,7 +102,7 @@ module Xing
 
     # @return Xing::User
     def user
-      @user ||= Xing::User.new(@attrs.dup['actors'].first) unless @attrs["actors"].nil?
+      @user ||= Xing::Models::User.new(@attrs.dup['actors'].first) unless @attrs["actors"].nil?
     end
 
   end
