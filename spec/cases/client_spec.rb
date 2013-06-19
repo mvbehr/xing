@@ -6,7 +6,7 @@ describe Xing::Client do
   end
 
   let(:client) { Xing::Client.new(:consumer_key => "consumer_key", :consumer_secret => "consumer_secret", :oauth_token => "oauth_token", :oauth_token_secret => "oauth_token_secret") }
-  let(:consumer) { OAuth::Consumer.new('token', 'secret', {:site => 'https://api.xing.com'}) }
+  let(:consumer) { OAuth::Consumer.new('token', 'secret', { :site => 'https://api.xing.com' }) }
 
   describe "User's network feed" do
 
@@ -37,16 +37,13 @@ describe Xing::Client do
 
     subject { client.contacts(limit: 3) }
 
-    it { should be_a_kind_of Hash }
-    its(['total']) { should be 5 }
-
-    it 'should return all users' do
-      subject['users'].size.should == 5
-    end
+    it { should be_a_kind_of Array }
+    its(:size) { should == 5 }
+    its(:first) { should be_an_instance_of Xing::Models::User }
   end
 
   describe '#create_conversation' do
-    let(:conversation_hash) { {content: 'msg', recipient_ids: [1, 2], subject: 'subject with special chars!'} }
+    let(:conversation_hash) { { content: 'msg', recipient_ids: [1, 2], subject: 'subject with special chars!' } }
     subject { client.create_conversation conversation_hash }
 
     before do
