@@ -1,3 +1,8 @@
+require 'xing/api/reader'
+require 'xing/api/writer'
+require 'xing/helpers/authorization'
+require 'xing/helpers/request'
+
 module Xing
 
   class Client

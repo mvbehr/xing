@@ -21,9 +21,7 @@ module Xing
     autoload :Base,             "xing/models/base"
   end
 
-  autoload :Api,              "xing/api"
   autoload :Client,           "xing/client"
   autoload :Errors,           "xing/errors"
-  autoload :Helpers,          "xing/helpers"
   autoload :Mash,             "xing/mash"
 end
