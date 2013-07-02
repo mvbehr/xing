@@ -2,6 +2,7 @@
 $:.push File.expand_path("../lib", __FILE__)
 require "xing/version"
 
+
 Gem::Specification.new do |gem|
   gem.name        = "xing"
   gem.version     = Xing::VERSION
@@ -17,16 +18,16 @@ Gem::Specification.new do |gem|
   gem.require_paths = ['lib']
   gem.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
 
-  gem.add_dependency 'hashie', '~> 2.0.0'
-  gem.add_dependency 'multi_json', '>= 1.3.6'
-  gem.add_dependency 'oauth', '~> 0.4.5'
-  gem.add_dependency 'active_support'
+  gem.add_dependency 'hashie'#, '~> 2.0.0'
+  gem.add_dependency 'multi_json'#, '>= 1.3.6'
+  gem.add_dependency 'oauth'#, '~> 0.4.5'
+  gem.add_dependency 'activesupport'
 
-  gem.add_development_dependency 'json', '~> 1.6'
-  gem.add_development_dependency 'rake', '~> 0.9'
-  gem.add_development_dependency 'rdoc', '~> 3.8'
-  gem.add_development_dependency 'rspec', '~> 2.6'
-  gem.add_development_dependency 'webmock', '~> 1.8.7'
-  gem.add_development_dependency 'guard-rspec', '~> 3.0.0'
+  gem.add_development_dependency 'json'#, '~> 1.6'
+  gem.add_development_dependency 'rake'#, '~> 0.9'
+  gem.add_development_dependency 'rdoc'#, '~> 3.8'
+  gem.add_development_dependency 'rspec'#, '~> 2.6'
+  gem.add_development_dependency 'webmock'#, '~> 1.8.7'
+  gem.add_development_dependency 'guard-rspec'#, '~> 3.0.0'
   gem.add_development_dependency 'pry'
 end

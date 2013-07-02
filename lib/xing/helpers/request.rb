@@ -47,7 +47,6 @@ module Xing
         case response.code.to_i
           when 401
             data = Mash.from_json(response.body)
-            ap data
             raise Xing::Errors::UnauthorizedError.new(data), "(#{data.status}): #{data.message}"
           when 400, 403
             data = Mash.from_json(response.body)
