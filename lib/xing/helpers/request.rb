@@ -14,14 +14,15 @@ module Xing
         URI.escape path
       end
 
-
       def get(path, options={})
         response = access_token.get("#{API_PATH}#{escape path}", DEFAULT_HEADERS.merge(options))
         respond response
       end
 
-      def post(path, body='', options={})
-        response = access_token.post("#{API_PATH}#{escape path}", body, DEFAULT_HEADERS.merge(options))
+      def post(path, args, body='', options={})
+        args = args.to_a.map{|e| "#{e[0]}=#{CGI::escape e[1]}"}.join("&") if args
+
+        response = access_token.post("#{API_PATH}#{escape path}?#{args}", body, DEFAULT_HEADERS.merge(options))
         respond response
       end
 

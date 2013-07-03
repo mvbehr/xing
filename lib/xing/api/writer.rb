@@ -12,9 +12,7 @@ module Xing
 
         path = '/users/me/conversations'
 
-        args = args.to_a.map{|e| "#{e[0]}=#{e[1]}"}.join("&")
-
-        Xing::Mash.new(post("#{path}?#{args}")['conversation'])
+        Xing::Mash.new(post(path, args)['conversation'])
       end
     end
   end
